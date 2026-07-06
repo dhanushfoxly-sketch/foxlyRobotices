@@ -9,8 +9,10 @@ certifi==2026.5.20
 charset-normalizer==3.4.7
 Django==4.2.30
 frozenlist==1.8.0
+gunicorn==23.0.0
 idna==3.18
 multidict==6.7.1
+packaging==26.2
 pillow==11.3.0
 propcache==0.4.1
 PyJWT==2.13.0
