@@ -1,0 +1,7 @@
+robotics/
+__pycache__/
+*.py[cod]
+db.sqlite3
+.DS_Store
+.vscode/
+.env

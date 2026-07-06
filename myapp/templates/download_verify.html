@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Verify Download Code | Robotices{% endblock %}
+
+{% block content %}
+<h1 class="section-title">Verify download code for {{ project.title }}</h1>
+<p class="lead">Enter the code you received along with the same contact details you used when requesting access.</p>
+
+{% if error %}
+<div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+
+<form method="post" class="mt-4">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label class="form-label">Logged in as</label>
+        <div class="form-control-plaintext">{{ request.user.get_full_name|default:request.user.username }} &mdash; {{ request.user.email }}</div>
+    </div>
+    <div class="mb-3">
+        <label for="id_access_code" class="form-label">Download code</label>
+        {{ form.access_code }}
+        {% if form.access_code.errors %}
+            <div class="text-danger">{{ form.access_code.errors }}</div>
+        {% endif %}
+    </div>
+    {% if form.non_field_errors %}
+    <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+    {% endif %}
+    <button type="submit" class="btn btn-primary">Verify and download</button>
+</form>
+{% endblock %}

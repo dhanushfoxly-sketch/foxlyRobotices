@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="hero text-white text-center py-5 px-3 rounded-4"
+    style="background: linear-gradient(135deg, rgba(144, 3, 3, 0.95), rgba(230, 7, 7, 0.95));">
+    <div class="container py-5">
+        {% load static %}
+
+        <img src="{% static 'myapp/images/banner.jpg' %}" style="max-height: 400px; object-fit: cover;" alt="Home Banner">
+        <h1 class="display-5 fw-bold">Robotices: Build Smarter Robotics Projects</h1>
+        <p class="lead mt-4">Discover ESP8266 WiFi cars, NodeMCU and Arduino robotics, and Raspberry Pi automation with
+            circuit diagrams, code, and component lists.</p>
+        <div class="mt-4">
+            <a href="{% url 'products' %}" class="btn btn-light btn-lg me-2 shadow-sm">Explore Projects</a>
+            <a href="{% url 'categories' %}" class="btn btn-outline-light btn-lg shadow-sm">Browse Board Types</a>
+        </div>
+        <div class="mt-5 text-start text-white-75">
+            <div class="d-inline-flex align-items-center me-4 mb-2">
+                <span class="badge bg-white text-primary rounded-pill py-2 px-3 me-2">1</span>
+                <span>Choose a project</span>
+            </div>
+            <div class="d-inline-flex align-items-center me-4 mb-2">
+                <span class="badge bg-white text-primary rounded-pill py-2 px-3 me-2">2</span>
+                <span>Add your business project image</span>
+            </div>
+            <div class="d-inline-flex align-items-center mb-2">
+                <span class="badge bg-white text-primary rounded-pill py-2 px-3 me-2">3</span>
+                <span>Download code and launch your build</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if featured_projects %}
+<div class="mt-5">
+    <h2 class="section-title">Business Highlights</h2>
+    <div id="featuredCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            {% for project in featured_projects %}
+            <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="{{ forloop.counter0 }}"
+                class="{% if forloop.first %}active{% endif %}" aria-current="{% if forloop.first %}true{% endif %}"
+                aria-label="Slide {{ forloop.counter }}"></button>
+            {% endfor %}
+        </div>
+        <div class="carousel-inner">
+            {% for project in featured_projects %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <div class="card feature-card border-0 overflow-hidden">
+                    {% if project.image %}
+                    <img src="{{ project.image.url }}" class="d-block w-100" style="max-height:360px; object-fit:cover;"
+                        alt="{{ project.title }}">
+                    {% endif %}
+                    <div class="card-body p-4">
+                        <h3 class="card-title">{{ project.title }}</h3>
+                        <p class="text-muted mb-2"><strong>{{ project.board_type.name }}</strong></p>
+                        <p>{{ project.description|truncatewords:22 }}</p>
+                        <div class="d-flex flex-wrap gap-2 mt-3">
+                            <span class="badge bg-primary">{{ project.board_type.name }}</span>
+                            <span class="badge bg-success">Highlighted</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#featuredCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#featuredCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+{% endif %}
+
+<div class="row g-4 mt-5">
+    <div class="col-md-4">
+        <div class="card feature-card p-4 h-100 text-center bg-white">
+            <div class="card-body">
+                <div class="mb-3 display-6 text-primary"><i class="fas fa-robot"></i></div>
+                <h3 class="h5">Discover Projects</h3>
+                <p class="text-muted mb-0">Browse ready-made robotics builds with boards, circuits, and code.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card feature-card p-4 h-100 text-center bg-white">
+            <div class="card-body">
+                <div class="mb-3 display-6 text-primary"><i class="fas fa-briefcase"></i></div>
+                <h3 class="h5">My Business</h3>
+                <p class="text-muted mb-0">Showcase your robotics business with project images, diagrams, and code.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card feature-card p-4 h-100 text-center bg-white">
+            <div class="card-body">
+                <div class="mb-3 display-6 text-primary"><i class="fas fa-download"></i></div>
+                <h3 class="h5">Download Code</h3>
+                <p class="text-muted mb-0">Get project source files quickly with a single click.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mt-5">
+    <div class="col-md-4">
+        <div class="card feature-card h-100 p-4 text-center bg-white">
+            <div class="card-body">
+                <h4>Projects</h4>
+                <p class="display-6 fw-bold mb-0">{{ stats.product_count }}</p>
+                <p class="text-muted">Uploaded robotics builds.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card feature-card h-100 p-4 text-center bg-white">
+            <div class="card-body">
+                <h4>Board Types</h4>
+                <p class="display-6 fw-bold mb-0">{{ stats.board_count }}</p>
+                <p class="text-muted">Supported development boards.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card feature-card h-100 p-4 text-center bg-white">
+            <div class="card-body">
+                <h4>Components</h4>
+                <p class="display-6 fw-bold mb-0">{{ stats.component_count }}</p>
+                <p class="text-muted">Electronic parts available.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if featured_projects %}
+<h2 class="section-title mt-5">Featured Projects</h2>
+<div class="row g-4">
+    {% for project in featured_projects %}
+    <div class="col-md-6">
+        <div class="card feature-card h-100 p-4">
+            <div class="card-body">
+                <h3>{{ project.title }}</h3>
+                <p class="text-muted mb-2"><strong>{{ project.board_type.name }}</strong></p>
+                <p>{{ project.description|truncatewords:25 }}</p>
+                {% if project.components.all %}
+                <div class="mt-2">
+                    <small class="text-muted"><strong>Components:</strong> {{ project.components.count }} items
+                        required</small>
+                </div>
+                {% endif %}
+                <div class="d-flex flex-wrap gap-2 mt-3">
+                    <span class="badge bg-primary">{{ project.board_type.name }}</span>
+                    {% if project.featured %}
+                    <span class="badge bg-success">Featured</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

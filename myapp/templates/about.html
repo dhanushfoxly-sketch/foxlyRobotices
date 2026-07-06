@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}About | Robotices{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="row align-items-center gy-5">
+        <div class="col-lg-6">
+            <span class="badge bg-primary rounded-pill px-3 py-2 mb-3">About Robotices</span>
+            <h1 class="display-5 fw-bold mb-4">Engineering business-ready robotics solutions with clear step-by-step projects.</h1>
+            <p class="lead text-muted mb-4">Robotices is designed for entrepreneurs, small teams, and makers who want to showcase robotics products, deploy smart automation systems, and present business ideas with real hardware examples.</p>
+            <div class="row g-3">
+                <div class="col-12">
+                    <div class="p-4 rounded-4 bg-white shadow-sm">
+                        <h5 class="mb-2">Our mission</h5>
+                        <p class="mb-0 text-muted">Make robotics project creation fast and professional by combining product-ready design, detailed circuit diagrams, and downloadable code in one place.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-4 rounded-4 bg-white shadow-sm h-100">
+                        <h5 class="mb-2">Business focus</h5>
+                        <p class="mb-0 text-muted">Highlight your robotics offerings with image-driven project cards and clear hardware specifications.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-4 rounded-4 bg-white shadow-sm h-100">
+                        <h5 class="mb-2">Easy access</h5>
+                        <p class="mb-0 text-muted">Customers can view diagrams, download code, and explore ready projects from one polished experience.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card feature-card border-0 shadow-lg">
+                <div class="card-body p-5">
+                    <h3 class="mb-4">Why businesses choose Robotices</h3>
+                    <ul class="list-unstyled">
+                        <li class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-circle me-3" style="width:32px;height:32px;display:grid;place-items:center;">1</span>
+                            <div>
+                                <strong>Professional project showcase</strong>
+                                <p class="mb-0 text-muted">Present your robotics builds with a clean interface and strong visual identity.</p>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-circle me-3" style="width:32px;height:32px;display:grid;place-items:center;">2</span>
+                            <div>
+                                <strong>Clear documentation for customers</strong>
+                                <p class="mb-0 text-muted">Deliver circuit diagrams, parts lists, and source code in a format that buyers trust.</p>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-start">
+                            <span class="badge bg-primary rounded-circle me-3" style="width:32px;height:32px;display:grid;place-items:center;">3</span>
+                            <div>
+                                <strong>Fast launch-ready builds</strong>
+                                <p class="mb-0 text-muted">Use the platform to explain your product, show results, and drive confident project decisions.</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="mt-4">
+                        <a href="{% url 'products' %}" class="btn btn-primary btn-lg me-2">See Projects</a>
+                        <a href="{% url 'categories' %}" class="btn btn-outline-primary btn-lg">View Board Types</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mt-5">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card feature-card p-4 h-100 text-center bg-white">
+                <div class="card-body">
+                    <div class="mb-3 display-6 text-primary"><i class="fas fa-lightbulb"></i></div>
+                    <h3 class="h5">Innovative design</h3>
+                    <p class="text-muted mb-0">Build robotics solutions with clear visuals, modern layout, and product-first storytelling.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card feature-card p-4 h-100 text-center bg-white">
+                <div class="card-body">
+                    <div class="mb-3 display-6 text-primary"><i class="fas fa-cogs"></i></div>
+                    <h3 class="h5">Hardware-ready</h3>
+                    <p class="text-muted mb-0">Show exact boards, circuits, and components so buyers know what they need.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card feature-card p-4 h-100 text-center bg-white">
+                <div class="card-body">
+                    <div class="mb-3 display-6 text-primary"><i class="fas fa-users"></i></div>
+                    <h3 class="h5">Customer trust</h3>
+                    <p class="text-muted mb-0">A structured project page builds credibility for robotics services and product launches.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}My Download Requests | Robotices{% endblock %}
+
+{% block content %}
+<h1 class="section-title">My Download Requests</h1>
+<p class="lead">Review the status of your approved download codes and download ZIPs once approved.</p>
+
+{% if requests %}
+<div class="table-responsive mt-4">
+    <table class="table table-bordered align-middle">
+        <thead>
+            <tr>
+                <th>Project</th>
+                <th>Status</th>
+                <th>Approved code</th>
+                <th>Download</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in requests %}
+            <tr>
+                <td>{{ item.project.title }}</td>
+                <td>
+                    {% if item.is_approved %}
+                        {% if item.is_used %}
+                            <span class="badge bg-secondary">Used</span>
+                        {% else %}
+                            <span class="badge bg-success">Approved</span>
+                        {% endif %}
+                    {% else %}
+                        <span class="badge bg-warning text-dark">Pending</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if item.is_approved %}
+                        <code>{{ item.access_code }}</code>
+                    {% else %}
+                        —
+                    {% endif %}
+                </td>
+                <td>
+                    {% if item.is_approved and not item.is_used %}
+                        <a href="{% url 'verify_download' item.project.id %}" class="btn btn-sm btn-primary">Use code</a>
+                    {% else %}
+                        <span class="text-muted">Not ready</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="alert alert-info mt-4">You have not submitted any download requests yet.</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,38 @@
+1. Open folder in VS Code
+code .
+2. Open Terminal
+
+👉 Click View → Terminal
+(or press Ctrl + `)
+
+3. Create virtual environment
+python -m venv myprojectenv
+4. Activate environment
+
+👉 Windows:
+
+myprojectenv\Scripts\activate
+
+👉 If error:
+
+.\myprojectenv\Scripts\activate
+5. Install Django
+pip install django
+6. Create Django project
+
+(⚠️ Make sure you are in the same main folder)
+
+django-admin startproject testing .
+7. Create app
+python manage.py startapp myapp
+8. Run server
+python manage.py runserver
+
+
+
+code .
+python -m venv myprojectenv
+pip install Django
+django-admin startproject testing .
+python manage.py startapp myapp
+python manage.py runserver

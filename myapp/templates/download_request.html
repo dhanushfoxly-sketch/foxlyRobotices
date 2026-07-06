@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Request Download Code | Robotices{% endblock %}
+
+{% block content %}
+<h1 class="section-title">Request access for {{ project.title }}</h1>
+<p class="lead">Enter your details so we can approve a download code for you. Once the code is assigned, return to the verification page to download the ZIP.</p>
+
+{% if success %}
+<div class="alert alert-success">
+    Your request was submitted successfully. Admin will review it and assign your download code.
+</div>
+<p>After approval, go to the <a href="{% url 'my_requests' %}">My Requests</a> page to see your code and download the ZIP.</p>
+{% if whatsapp_url %}
+<p>
+    <a href="{{ whatsapp_url }}" class="btn btn-success" target="_blank" rel="noopener noreferrer">
+        Send WhatsApp message to admin
+    </a>
+</p>
+{% else %}
+<p class="text-muted">If WhatsApp is configured, a notification has been sent automatically.</p>
+{% endif %}
+{% else %}
+<form method="post" class="mt-4">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label class="form-label">Logged in as</label>
+        <div class="form-control-plaintext">{{ request.user.get_full_name|default:request.user.username }} &mdash; {{ request.user.email }}</div>
+    </div>
+    <div class="mb-3">
+        <label for="id_phone_number" class="form-label">Phone number</label>
+        {{ form.phone_number }}
+        {% if form.phone_number.errors %}
+            <div class="text-danger">{{ form.phone_number.errors }}</div>
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        <label for="id_message" class="form-label">Message for admin</label>
+        {{ form.message }}
+        {% if form.message.errors %}
+            <div class="text-danger">{{ form.message.errors }}</div>
+        {% endif %}
+    </div>
+    {% if form.non_field_errors %}
+    <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+    {% endif %}
+    <button type="submit" class="btn btn-primary">Submit request</button>
+</form>
+{% endif %}
+{% endblock %}

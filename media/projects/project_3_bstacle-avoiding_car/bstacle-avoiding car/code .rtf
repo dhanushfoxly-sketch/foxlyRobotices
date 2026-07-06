@@ -1,0 +1,147 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2869
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 #include <Servo.h>\
+\
+// Motor Driver Pins\
+const int IN1 = 4;\
+const int IN2 = 5;\
+const int IN3 = 6;\
+const int IN4 = 7;\
+\
+// Ultrasonic Sensor Pins\
+const int trigPin = 9;\
+const int echoPin = 8;\
+\
+// Servo Motor\
+Servo myServo;\
+\
+// Variables\
+long duration;\
+int distance;\
+int distanceRight;\
+int distanceLeft;\
+\
+void setup() \{\
+  // Initialize Motor Pins\
+  pinMode(IN1, OUTPUT);\
+  pinMode(IN2, OUTPUT);\
+  pinMode(IN3, OUTPUT);\
+  pinMode(IN4, OUTPUT);\
+  \
+  // Initialize Sensor Pins\
+  pinMode(trigPin, OUTPUT);\
+  pinMode(echoPin, INPUT);\
+  \
+  // Attach Servo to Pin 11 and center it\
+  myServo.attach(11);\
+  myServo.write(90); \
+  delay(2000); // Wait for 2 seconds to let the car settle\
+\}\
+\
+void loop() \{\
+  distance = readDistance();\
+  \
+  if (distance <= 25) \{ // If obstacle is closer than 25cm\
+    moveStop();\
+    delay(300);\
+    moveBackward();\
+    delay(400);\
+    moveStop();\
+    delay(300);\
+    \
+    // Look around\
+    distanceRight = lookRight();\
+    delay(300);\
+    distanceLeft = lookLeft();\
+    delay(300);\
+    \
+    // Choose direction\
+    if (distanceRight >= distanceLeft) \{\
+      turnRight();\
+      delay(500); // Adjust this delay to get a clean 90-degree turn\
+      moveStop();\
+    \} else \{\
+      turnLeft();\
+      delay(500);\
+      moveStop();\
+    \}\
+  \} else \{\
+    moveForward();\
+  \}\
+  delay(50);\
+\}\
+\
+// Function to read distance from Ultrasonic Sensor\
+int readDistance() \{\
+  digitalWrite(trigPin, LOW);\
+  delayMicroseconds(2);\
+  digitalWrite(trigPin, HIGH);\
+  delayMicroseconds(10);\
+  digitalWrite(trigPin, LOW);\
+  \
+  duration = pulseIn(echoPin, HIGH);\
+  int cm = duration * 0.034 / 2; // Math formula to convert time to cm\
+  \
+  if (cm == 0) \{\
+    return 250; // Prevents reading errors from registering as obstacles\
+  \}\
+  return cm;\
+\}\
+\
+// Servo scanning functions\
+int lookRight() \{  \
+  myServo.write(20);\
+  delay(500);\
+  int dist = readDistance();\
+  myServo.write(90); // Return to center\
+  return dist;\
+\}\
+\
+int lookLeft() \{\
+  myServo.write(160);\
+  delay(500);\
+  int dist = readDistance();\
+  myServo.write(90); // Return to center\
+  return dist;\
+\}\
+\
+// Movement functions\
+void moveForward() \{\
+  digitalWrite(IN1, HIGH);\
+  digitalWrite(IN2, LOW);\
+  digitalWrite(IN3, HIGH);\
+  digitalWrite(IN4, LOW);\
+\}\
+\
+void moveBackward() \{\
+  digitalWrite(IN1, LOW);\
+  digitalWrite(IN2, HIGH);\
+  digitalWrite(IN3, LOW);\
+  digitalWrite(IN4, HIGH);\
+\}\
+\
+void turnRight() \{\
+  digitalWrite(IN1, LOW);\
+  digitalWrite(IN2, HIGH);\
+  digitalWrite(IN3, HIGH);\
+  digitalWrite(IN4, LOW);\
+\}\
+\
+void turnLeft() \{\
+  digitalWrite(IN1, HIGH);\
+  digitalWrite(IN2, LOW);\
+  digitalWrite(IN3, LOW);\
+  digitalWrite(IN4, HIGH);\
+\}\
+\
+void moveStop() \{\
+  digitalWrite(IN1, LOW);\
+  digitalWrite(IN2, LOW);\
+  digitalWrite(IN3, LOW);\
+  digitalWrite(IN4, LOW);\
+\}}
