@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-l(fxji-@bl23mphm31aa+gawp4jio0*$n-umb*4$d$hhs^#hdh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "foxlyrobotices.onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
 
 
 # Application definition
