@@ -8,7 +8,7 @@ attrs==26.1.0
 certifi==2026.5.20
 charset-normalizer==3.4.7
 cloudinary==1.45.0
-Django==4.2.30
+Django>=5.2,<5.3
 django-cloudinary-storage==0.3.0
 frozenlist==1.8.0
 gunicorn==23.0.0
